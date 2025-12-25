@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecEdits | Piyush Yogi</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Manrope:wght@300;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CORE STYLES --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: #050505;
+            color: white;
+            font-family: 'Manrope', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .nav-logo { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 30px 50px;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 100; 
+            mix-blend-mode: exclusion;
+        }
+        
+        .nav-logo { font-size: 2rem; font-weight: 700; letter-spacing: 2px; }
+        .nav-links a { color: white; text-decoration: none; margin-left: 30px; font-weight: 600; font-size: 0.9rem; text-transform: uppercase;}
+
+        /* --- HERO SCROLL SECTION --- */
+        .scroll-container { height: 250vh; position: relative; }
+
+        .sticky-wrapper {
+            position: sticky; top: 0; height: 100vh; width: 100%;
+            overflow: hidden; display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            /* background: #050505;  <-- OLD SOLID COLOR REMOVED */
+            
+            /* --- NEW BACKGROUND IMAGE --- */
+            /* Yahan aap apni pasand ki photo ka URL daal sakte hain */
+            background-image: url(jk.jpg);
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Dark Overlay for Front Page so text pops */
+        .sticky-wrapper::before {
+            content: '';
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 5, 5, 0.85); /* Gehra dark tint */
+            z-index: 0; /* Content ke peeche */
+        }
+
+        /* Hero Text (Jo gayab hoga) */
+        .hero-text {
+            text-align: center; z-index: 2; position: relative;
+            transition: opacity 0.3s ease-out;
+        }
+
+        .hero-text h1 { font-size: 10vw; line-height: 0.9; margin-bottom: 10px; font-weight: 700; }
+        .hero-text p { font-size: 1.5rem; letter-spacing: 5px; color: #ff3c00; font-weight: 600; margin-bottom: 30px;}
+        
+        .scroll-hint { font-size: 0.8rem; letter-spacing: 2px; color: #aaa; animation: bounce 2s infinite; margin-top: 20px;}
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
+
+        /* Expanding Video */
+        .video-wrapper {
+            position: absolute; bottom: 50px;
+            width: 30%; height: 250px;
+            border-radius: 20px; overflow: hidden; z-index: 2; /* Text ke barabar z-index */
+            box-shadow: 0 0 50px rgba(0,0,0,0.9);
+            transition: width 0.1s linear, height 0.1s linear, border-radius 0.1s linear, bottom 0.1s linear;
+        }
+
+        .video-wrapper video { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.9); }
+
+        /* --- WORK SECTION (Categories) --- */
+        .work-section { background: #050505; padding: 100px 50px; position: relative; z-index: 10; box-shadow: 0 -50px 100px #050505; }
+        
+        .section-title { font-size: 3.5rem; margin-bottom: 60px; text-align: center; }
+        .section-title span { color: #ff3c00; border-bottom: 2px solid #ff3c00; }
+
+        .categories-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;
+        }
+
+        .cat-card {
+            height: 450px; position: relative; overflow: hidden; border-radius: 10px; cursor: pointer;
+            border: 1px solid #222; transition: 0.4s;
+        }
+        
+        .cat-card img, .cat-card video {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.6s ease; filter: grayscale(80%);
+        }
+
+        .cat-card:hover { border-color: #ff3c00; transform: translateY(-10px); }
+        .cat-card:hover img, .cat-card:hover video { transform: scale(1.1); filter: grayscale(0%); }
+
+        .cat-info {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            padding: 30px; background: linear-gradient(to top, black, transparent);
+            z-index: 2;
+        }
+        .cat-info h3 { font-size: 2rem; margin-bottom: 5px; }
+        .cat-info p { color: #ff3c00; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; }
+
+        /* --- FOOTER (Photo Background) --- */
+        .photo-footer {
+            background-image: url(header.jpg); 
+            background-size: cover; background-position: center; background-attachment: fixed;
+            position: relative; padding: 100px 50px; text-align: center;
+            z-index: 10;
+        }
+
+        .footer-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85); z-index: 1;
+        }
+
+        .footer-content { position: relative; z-index: 2; }
+
+        .footer-heading { font-size: 4rem; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
+        .footer-contact { font-size: 1.5rem; color: #ff3c00; margin-bottom: 40px; display: block; text-decoration: none; font-weight: bold; }
+        
+        .social-row { display: flex; justify-content: center; gap: 30px; margin-bottom: 40px; }
+        .social-icon { font-size: 1.5rem; color: white; transition: 0.3s; }
+        .social-icon:hover { color: #ff3c00; transform: scale(1.2); }
+
+        .copyright { color: #666; font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; display: inline-block; width: 100%;}
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-text h1 { font-size: 15vw; }
+            .video-wrapper { width: 80%; height: 200px; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .cat-card { height: 350px; }
+            .nav-links { display: none; }
+            .footer-heading { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-logo">REC EDITS</div>
+        <div class="nav-links">
+            <a href="#work">Work</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <div class="scroll-container">
+        <div class="sticky-wrapper">
+            
+            <div class="hero-text" id="heroText">
+                <h1>REC EDITS</h1>
+                <p>EDITS BY PIYUSH YOGI</p>
+                <div class="scroll-hint">SCROLL TO REVEAL <i class="fa-solid fa-arrow-down"></i></div>
+            </div>
+
+            <div class="video-wrapper" id="heroVideo">
+                <video autoplay loop muted playsinline>
+                    <source src="video2.mp4" type="video/mp4">
+                </video>
+            </div>
+
+        </div>
+    </div>
+
+    <section id="work" class="work-section">
+        <h2 class="section-title">WHAT I <span>EDIT</span></h2>
+
+        <div class="categories-grid">
+            
+            <div class="cat-card">
+                <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=800" alt="Nature">
+                <div class="cat-info">
+                    <h3>Nature Edit</h3>
+                    <p>Cinematic & Calm</p>
+                </div>
+            </div>
+
+            <div class="cat-card">
+                <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=800" alt="Vlog">
+                <div class="cat-info">
+                    <h3>Normal & Vlogs</h3>
+                    <p>Storytelling</p>
+                </div>
+            </div>
+
+            <div class="cat-card">
+                <video autoplay loop muted playsinline>
+                    <source src="H:\piyush/videoko.mp4" type="video/mp4">
+                </video>
+                <div class="cat-info">
+                    <h3>Reel Editor</h3>
+                    <p style="color: #00f2ff;">Short Form Content</p>
+                </div>
+            </div>
+
+            <div class="cat-card">
+                <img src="Video editing process containing video, editing, and technology.jpg" alt="Music">
+                <div class="cat-info">
+                    <h3>Song Video</h3>
+                    <p>Music & Beats</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer id="contact" class="photo-footer">
+        <div class="footer-overlay"></div>
+        <div class="footer-content">
+            <h2 class="footer-heading">Let's Create Magic</h2>
+            <p style="color: #ccc; margin-bottom: 10px;">Ready to start your project?</p>
+            <a href="mailto:piyush@recedit.com" class="footer-contact">weaponxpiyush@gmail.com</a>
+            
+            <div class="social-row">
+                <a href="https://www.instagram.com/rec_edits1/" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@recedits1?si=L8z-Amsp4X0JFp4x" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
+                
+            </div>
+
+            <span class="copyright">2025 RecEdits. Managed by Piyush Yogi.</span>
+        </div>
+    </footer>
+
+    <script>
+        const scrollContainer = document.querySelector('.scroll-container');
+        const videoWrapper = document.getElementById('heroVideo');
+        const heroText = document.getElementById('heroText');
+
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const maxScroll = window.innerHeight * 1.5; 
+            
+            let progress = Math.min(scrollY / maxScroll, 1);
+
+            // Video Expansion
+            let newWidth = 30 + (progress * 70);
+            let newHeight = 250 + (progress * (window.innerHeight - 250));
+            let newBottom = 50 - (progress * 50);
+            let newRadius = 20 - (progress * 20);
+
+            videoWrapper.style.width = newWidth + '%';
+            videoWrapper.style.height = newHeight + 'px';
+            videoWrapper.style.bottom = newBottom + 'px';
+            videoWrapper.style.borderRadius = newRadius + 'px';
+            
+            // Text Hiding
+            let textOpacity = 1 - (progress * 3);
+            heroText.style.opacity = Math.max(textOpacity, 0);
+            
+            if(textOpacity <= 0) {
+                heroText.style.pointerEvents = 'none';
+            } else {
+                heroText.style.pointerEvents = 'all';
+            }
+        });
+    </script>
+</body>
+</html>
